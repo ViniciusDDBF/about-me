@@ -1,0 +1,463 @@
+import { useState, type SetStateAction } from 'react';
+import {
+  ArrowRight,
+  ExternalLink,
+  Github,
+  Linkedin,
+  Mail,
+  User,
+  Code,
+  Briefcase,
+  Star,
+  Calendar,
+  Tag,
+} from 'lucide-react';
+import Button from './Button';
+
+const PortfolioBlog = () => {
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [hoveredProject, setHoveredProject] =
+    useState<SetStateAction<number | null>>(null);
+
+  const skills = [
+    { name: 'React/Next.js', level: 95, category: 'Frontend' },
+    { name: 'TypeScript', level: 90, category: 'Frontend' },
+    { name: 'UI/UX Design', level: 88, category: 'Design' },
+    { name: 'Node.js', level: 85, category: 'Backend' },
+    { name: 'Python', level: 82, category: 'Backend' },
+    { name: 'AWS/Cloud', level: 80, category: 'Infrastructure' },
+  ];
+
+  const projects = [
+    {
+      id: 1,
+      title: 'E-Commerce Platform',
+      description:
+        'Full-stack marketplace with real-time chat, payment processing, and inventory management',
+      tags: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
+      category: 'fullstack',
+      image: '/api/placeholder/400/250',
+      github: '#',
+      live: '#',
+      featured: true,
+    },
+    {
+      id: 2,
+      title: 'AI Content Generator',
+      description:
+        'Machine learning application for automated content creation and optimization',
+      tags: ['Python', 'TensorFlow', 'React', 'API'],
+      category: 'ai',
+      image: '/api/placeholder/400/250',
+      github: '#',
+      live: '#',
+      featured: true,
+    },
+    {
+      id: 3,
+      title: 'Design System Library',
+      description:
+        'Component library with documentation, theming, and accessibility standards',
+      tags: ['React', 'Storybook', 'TypeScript', 'CSS'],
+      category: 'design',
+      image: '/api/placeholder/400/250',
+      github: '#',
+      live: '#',
+      featured: false,
+    },
+    {
+      id: 4,
+      title: 'Real-time Analytics Dashboard',
+      description:
+        'Interactive dashboard with live data visualization and reporting capabilities',
+      tags: ['Vue.js', 'D3.js', 'WebSocket', 'Express'],
+      category: 'frontend',
+      image: '/api/placeholder/400/250',
+      github: '#',
+      live: '#',
+      featured: false,
+    },
+  ];
+
+  const filterCategories = [
+    { id: 'all', label: 'All Projects' },
+    { id: 'fullstack', label: 'Full-Stack' },
+    { id: 'frontend', label: 'Frontend' },
+    { id: 'ai', label: 'AI/ML' },
+    { id: 'design', label: 'Design' },
+  ];
+
+  const filteredProjects =
+    activeFilter === 'all'
+      ? projects
+      : projects.filter((project) => project.category === activeFilter);
+
+  return (
+    <div className="min-h-screen bg-charcoal-900">
+      {/* Navigation */}
+      <nav className="bg-charcoal-800/95 backdrop-blur-sm border-b border-charcoal-700 sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="text-ember-500 text-2xl font-bold">YourName</div>
+            <div className="hidden md:flex items-center gap-8">
+              <a
+                href="#about"
+                className="text-charcoal-300 hover:text-ember-400 ember-transition"
+              >
+                About
+              </a>
+              <a
+                href="#projects"
+                className="text-charcoal-300 hover:text-ember-400 ember-transition"
+              >
+                Projects
+              </a>
+              <a
+                href="#skills"
+                className="text-charcoal-300 hover:text-ember-400 ember-transition"
+              >
+                Skills
+              </a>
+              <Button text="Contact" variant="primary" size="sm" />
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="bg-gradient-hero py-20 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="glass-effect rounded-2xl p-12 mb-8">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              <span className="text-gradient-ember">Full-Stack Developer</span>
+              <br />
+              <span className="text-charcoal-200">
+                & Creative Problem Solver
+              </span>
+            </h1>
+            <p className="text-xl text-charcoal-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+              Crafting sophisticated digital experiences through clean code,
+              thoughtful design, and strategic problem-solving. Specialized in
+              modern web technologies and user-centered solutions.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                text="View My Work"
+                variant="primary"
+                size="lg"
+                endIcon={<ArrowRight size={20} />}
+              />
+              <Button
+                text="Download Resume"
+                variant="secondary"
+                size="lg"
+                startIcon={<User size={20} />}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-20 px-6 bg-charcoal-800">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-ember-500 mb-12 text-center">
+            About Me
+          </h2>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <p className="text-lg text-charcoal-300 leading-relaxed">
+                I'm a passionate developer who believes great software comes
+                from understanding both the technical challenge and the human
+                need. With [X] years of experience building scalable
+                applications, I specialize in creating solutions that are both
+                powerful and intuitive.
+              </p>
+              <p className="text-lg text-charcoal-300 leading-relaxed">
+                My approach combines technical expertise with design thinking,
+                ensuring every project delivers exceptional user experiences
+                while maintaining clean, maintainable code.
+              </p>
+              <div className="flex gap-4 pt-4">
+                <Button
+                  text="LinkedIn"
+                  variant="secondary"
+                  startIcon={<Linkedin size={18} />}
+                />
+                <Button
+                  text="GitHub"
+                  variant="secondary"
+                  startIcon={<Github size={18} />}
+                />
+                <Button
+                  text="Email"
+                  variant="secondary"
+                  startIcon={<Mail size={18} />}
+                />
+              </div>
+            </div>
+            <div className="glass-effect rounded-xl p-8">
+              <h3 className="text-2xl font-semibold text-ember-400 mb-6">
+                Quick Facts
+              </h3>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <Code className="text-ember-400" size={20} />
+                  <span className="text-charcoal-300">
+                    [X]+ years of development experience
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Briefcase className="text-ember-400" size={20} />
+                  <span className="text-charcoal-300">
+                    [X]+ successful project launches
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Star className="text-ember-400" size={20} />
+                  <span className="text-charcoal-300">
+                    Specialized in [Your Key Expertise]
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section id="skills" className="py-20 px-6 bg-charcoal-800">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-ember-500 mb-12 text-center">
+            Core Competencies
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {skills.map((skill) => (
+              <div
+                key={skill.name}
+                className="bg-charcoal-800 border border-charcoal-600 hover:border-ember-400/50 rounded-xl p-6 lift-base hover:lift-hover"
+              >
+                <div className="flex justify-between items-center mb-3">
+                  <h3 className="font-semibold text-ember-400">{skill.name}</h3>
+                  <span className="text-sm text-charcoal-400">
+                    {skill.category}
+                  </span>
+                </div>
+                <div className="relative">
+                  <div className="bg-charcoal-700 rounded-full h-3 overflow-hidden">
+                    <div
+                      className="bg-gradient-to-r from-ember-500 to-ember-400 h-full rounded-full ember-transition"
+                      style={{ width: `${skill.level}%` }}
+                    />
+                  </div>
+                  <span className="text-sm text-charcoal-300 mt-2 block">
+                    {skill.level}% Proficiency
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="projects" className="py-20 px-6 bg-charcoal-800">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-ember-500 mb-12 text-center">
+            Featured Projects
+          </h2>
+
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap gap-3 justify-center mb-12">
+            {filterCategories.map((category) => (
+              <Button
+                key={category.id}
+                text={category.label}
+                variant={activeFilter === category.id ? 'primary' : 'secondary'}
+                size="sm"
+                selected={activeFilter === category.id}
+                onClick={() => setActiveFilter(category.id)}
+              />
+            ))}
+          </div>
+
+          {/* Projects Grid */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {filteredProjects.map((project) => (
+              <div
+                key={project.id}
+                className={`group bg-charcoal-800 border border-charcoal-600 hover:border-ember-400/50 rounded-xl overflow-hidden lift-base hover:lift-hover ${
+                  project.featured ? 'ring-1 ring-ember-500/30' : ''
+                }`}
+                onMouseEnter={() => setHoveredProject(project.id)}
+                onMouseLeave={() => setHoveredProject(null)}
+              >
+                {/* Project Image */}
+                <div className="relative overflow-hidden bg-charcoal-700 h-48">
+                  <div className="w-full h-full bg-gradient-subtle flex items-center justify-center">
+                    <span className="text-charcoal-400 text-lg">
+                      Project Screenshot
+                    </span>
+                  </div>
+                  {project.featured && (
+                    <div className="absolute top-4 right-4">
+                      <div className="bg-ember-500 text-white px-3 py-1 rounded-full text-sm font-medium ember-glow">
+                        Featured
+                      </div>
+                    </div>
+                  )}
+                  {/* Hover Overlay */}
+                  <div
+                    className={`absolute inset-0 bg-ember-500/20 backdrop-blur-sm ember-transition flex items-center justify-center gap-4 ${
+                      hoveredProject === project.id
+                        ? 'opacity-100'
+                        : 'opacity-0'
+                    }`}
+                  >
+                    <Button
+                      text="Live Demo"
+                      variant="primary"
+                      size="sm"
+                      startIcon={<ExternalLink size={16} />}
+                    />
+                    <Button
+                      text="Code"
+                      variant="secondary"
+                      size="sm"
+                      startIcon={<Github size={16} />}
+                    />
+                  </div>
+                </div>
+
+                {/* Project Content */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-ember-400 mb-3">
+                    {project.title}
+                  </h3>
+                  <p className="text-charcoal-300 mb-4 leading-relaxed">
+                    {project.description}
+                  </p>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tags.map((tag, tagIndex) => (
+                      <span
+                        key={tagIndex}
+                        className="bg-charcoal-700 text-ember-300 px-3 py-1 rounded-full text-sm border border-charcoal-600"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Project Links */}
+                  <div className="flex gap-3">
+                    <Button
+                      text="View Project"
+                      variant="primary"
+                      size="sm"
+                      endIcon={<ExternalLink size={16} />}
+                    />
+                    <Button
+                      text="Code"
+                      variant="secondary"
+                      size="sm"
+                      startIcon={<Github size={16} />}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Load More Projects */}
+          <div className="text-center mt-12">
+            <Button
+              text="View All Projects"
+              variant="secondary"
+              size="lg"
+              endIcon={<ArrowRight size={20} />}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Blog/Articles Section */}
+      <section className="py-20 px-6 bg-charcoal-800">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-ember-500 mb-12 text-center">
+            Latest Articles
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[1, 2, 3].map((article) => (
+              <article
+                key={article}
+                className="bg-charcoal-800 border border-charcoal-600 hover:border-ember-400/50 rounded-xl overflow-hidden lift-base hover:lift-hover"
+              >
+                <div className="h-40 bg-gradient-subtle flex items-center justify-center">
+                  <span className="text-charcoal-400">Article Image</span>
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-2 text-sm text-charcoal-400 mb-3">
+                    <Calendar size={16} />
+                    <span>March {15 + article}, 2024</span>
+                    <Tag size={16} className="ml-2" />
+                    <span>Tutorial</span>
+                  </div>
+                  <h3 className="text-xl font-semibold text-ember-400 mb-3">
+                    {article === 1 && 'Building Scalable React Applications'}
+                    {article === 2 && 'Modern CSS Techniques for Developers'}
+                    {article === 3 && 'Optimizing Performance in Next.js'}
+                  </h3>
+                  <p className="text-charcoal-300 mb-4 leading-relaxed">
+                    {article === 1 &&
+                      'Explore advanced patterns and architectures for building maintainable React applications that scale with your team.'}
+                    {article === 2 &&
+                      'Discover cutting-edge CSS features and techniques that will transform your styling workflow and user experiences.'}
+                    {article === 3 &&
+                      'Deep dive into performance optimization strategies for Next.js applications with real-world examples.'}
+                  </p>
+                  <Button
+                    text="Read Article"
+                    variant="secondary"
+                    size="sm"
+                    endIcon={<ArrowRight size={16} />}
+                  />
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-charcoal-800 py-6 px-6">
+        <div className="border-t border-charcoal-700 mt-8 pt-8 text-center flex flex-1 justify-evenly">
+          <p className="text-charcoal-400 text-sm">© 2025 Vinicius Dundich</p>
+          <div className="flex gap-4">
+            <a
+              href="#"
+              className="text-charcoal-400 hover:text-ember-400 ember-transition"
+            >
+              <Github size={24} />
+            </a>
+            <a
+              href="#"
+              className="text-charcoal-400 hover:text-ember-400 ember-transition"
+            >
+              <Linkedin size={24} />
+            </a>
+            <a
+              href="#"
+              className="text-charcoal-400 hover:text-ember-400 ember-transition"
+            >
+              <Mail size={24} />
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default PortfolioBlog;
