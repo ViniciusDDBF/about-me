@@ -1,6 +1,5 @@
-import { useState, type SetStateAction } from 'react';
+import { useState } from 'react';
 import {
-  ArrowRight,
   ExternalLink,
   Github,
   Linkedin,
@@ -9,23 +8,16 @@ import {
   Code,
   Briefcase,
   Star,
-  Calendar,
-  Tag,
 } from 'lucide-react';
 import Button from './Button';
 
 const PortfolioBlog = () => {
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [hoveredProject, setHoveredProject] =
-    useState<SetStateAction<number | null>>(null);
+  const [activeFilter] = useState('all');
 
   const skills = [
-    { name: 'React/Next.js', level: 95, category: 'Frontend' },
+    { name: 'React', level: 95, category: 'Frontend' },
     { name: 'TypeScript', level: 90, category: 'Frontend' },
     { name: 'UI/UX Design', level: 88, category: 'Design' },
-    { name: 'Node.js', level: 85, category: 'Backend' },
-    { name: 'Python', level: 82, category: 'Backend' },
-    { name: 'AWS/Cloud', level: 80, category: 'Infrastructure' },
   ];
 
   const projects = [
@@ -34,57 +26,13 @@ const PortfolioBlog = () => {
       title: 'E-Commerce Platform',
       description:
         'Full-stack marketplace with real-time chat, payment processing, and inventory management',
-      tags: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
+      tags: ['React', 'TypeScript', 'Redux', 'TailwindCSS', 'PostgreSQL'],
       category: 'fullstack',
       image: '/api/placeholder/400/250',
       github: '#',
       live: '#',
       featured: true,
     },
-    {
-      id: 2,
-      title: 'AI Content Generator',
-      description:
-        'Machine learning application for automated content creation and optimization',
-      tags: ['Python', 'TensorFlow', 'React', 'API'],
-      category: 'ai',
-      image: '/api/placeholder/400/250',
-      github: '#',
-      live: '#',
-      featured: true,
-    },
-    {
-      id: 3,
-      title: 'Design System Library',
-      description:
-        'Component library with documentation, theming, and accessibility standards',
-      tags: ['React', 'Storybook', 'TypeScript', 'CSS'],
-      category: 'design',
-      image: '/api/placeholder/400/250',
-      github: '#',
-      live: '#',
-      featured: false,
-    },
-    {
-      id: 4,
-      title: 'Real-time Analytics Dashboard',
-      description:
-        'Interactive dashboard with live data visualization and reporting capabilities',
-      tags: ['Vue.js', 'D3.js', 'WebSocket', 'Express'],
-      category: 'frontend',
-      image: '/api/placeholder/400/250',
-      github: '#',
-      live: '#',
-      featured: false,
-    },
-  ];
-
-  const filterCategories = [
-    { id: 'all', label: 'All Projects' },
-    { id: 'fullstack', label: 'Full-Stack' },
-    { id: 'frontend', label: 'Frontend' },
-    { id: 'ai', label: 'AI/ML' },
-    { id: 'design', label: 'Design' },
   ];
 
   const filteredProjects =
@@ -98,7 +46,9 @@ const PortfolioBlog = () => {
       <nav className="bg-charcoal-800/95 backdrop-blur-sm border-b border-charcoal-700 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="text-ember-500 text-2xl font-bold">YourName</div>
+            <div className="text-ember-500 text-2xl font-bold">
+              Vinicius Dundich
+            </div>
             <div className="hidden md:flex items-center gap-8">
               <a
                 href="#about"
@@ -129,11 +79,7 @@ const PortfolioBlog = () => {
         <div className="max-w-4xl mx-auto text-center">
           <div className="glass-effect rounded-2xl p-12 mb-8">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="text-gradient-ember">Full-Stack Developer</span>
-              <br />
-              <span className="text-charcoal-200">
-                & Creative Problem Solver
-              </span>
+              <span className="text-gradient-ember">Web Developer</span>
             </h1>
             <p className="text-xl text-charcoal-300 mb-8 max-w-2xl mx-auto leading-relaxed">
               Crafting sophisticated digital experiences through clean code,
@@ -141,12 +87,6 @@ const PortfolioBlog = () => {
               modern web technologies and user-centered solutions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                text="View My Work"
-                variant="primary"
-                size="lg"
-                endIcon={<ArrowRight size={20} />}
-              />
               <Button
                 text="Download Resume"
                 variant="secondary"
@@ -264,36 +204,20 @@ const PortfolioBlog = () => {
       <section id="projects" className="py-20 px-6 bg-charcoal-800">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-ember-500 mb-12 text-center">
-            Featured Projects
+            Ecommerce Project
           </h2>
 
-          {/* Filter Buttons */}
-          <div className="flex flex-wrap gap-3 justify-center mb-12">
-            {filterCategories.map((category) => (
-              <Button
-                key={category.id}
-                text={category.label}
-                variant={activeFilter === category.id ? 'primary' : 'secondary'}
-                size="sm"
-                selected={activeFilter === category.id}
-                onClick={() => setActiveFilter(category.id)}
-              />
-            ))}
-          </div>
-
           {/* Projects Grid */}
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="">
             {filteredProjects.map((project) => (
               <div
                 key={project.id}
-                className={`group bg-charcoal-800 border border-charcoal-600 hover:border-ember-400/50 rounded-xl overflow-hidden lift-base hover:lift-hover ${
+                className={`group bg-charcoal-800 border border-charcoal-600 hover:border-ember-400/50 rounded-xl overflow-hidden lift-base  ${
                   project.featured ? 'ring-1 ring-ember-500/30' : ''
                 }`}
-                onMouseEnter={() => setHoveredProject(project.id)}
-                onMouseLeave={() => setHoveredProject(null)}
               >
                 {/* Project Image */}
-                <div className="relative overflow-hidden bg-charcoal-700 h-48">
+                <div className="relative overflow-hidden bg-charcoal-700 h-96">
                   <div className="w-full h-full bg-gradient-subtle flex items-center justify-center">
                     <span className="text-charcoal-400 text-lg">
                       Project Screenshot
@@ -306,27 +230,6 @@ const PortfolioBlog = () => {
                       </div>
                     </div>
                   )}
-                  {/* Hover Overlay */}
-                  <div
-                    className={`absolute inset-0 bg-ember-500/20 backdrop-blur-sm ember-transition flex items-center justify-center gap-4 ${
-                      hoveredProject === project.id
-                        ? 'opacity-100'
-                        : 'opacity-0'
-                    }`}
-                  >
-                    <Button
-                      text="Live Demo"
-                      variant="primary"
-                      size="sm"
-                      startIcon={<ExternalLink size={16} />}
-                    />
-                    <Button
-                      text="Code"
-                      variant="secondary"
-                      size="sm"
-                      startIcon={<Github size={16} />}
-                    />
-                  </div>
                 </div>
 
                 {/* Project Content */}
@@ -367,64 +270,6 @@ const PortfolioBlog = () => {
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-
-          {/* Load More Projects */}
-          <div className="text-center mt-12">
-            <Button
-              text="View All Projects"
-              variant="secondary"
-              size="lg"
-              endIcon={<ArrowRight size={20} />}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Blog/Articles Section */}
-      <section className="py-20 px-6 bg-charcoal-800">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-ember-500 mb-12 text-center">
-            Latest Articles
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((article) => (
-              <article
-                key={article}
-                className="bg-charcoal-800 border border-charcoal-600 hover:border-ember-400/50 rounded-xl overflow-hidden lift-base hover:lift-hover"
-              >
-                <div className="h-40 bg-gradient-subtle flex items-center justify-center">
-                  <span className="text-charcoal-400">Article Image</span>
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center gap-2 text-sm text-charcoal-400 mb-3">
-                    <Calendar size={16} />
-                    <span>March {15 + article}, 2024</span>
-                    <Tag size={16} className="ml-2" />
-                    <span>Tutorial</span>
-                  </div>
-                  <h3 className="text-xl font-semibold text-ember-400 mb-3">
-                    {article === 1 && 'Building Scalable React Applications'}
-                    {article === 2 && 'Modern CSS Techniques for Developers'}
-                    {article === 3 && 'Optimizing Performance in Next.js'}
-                  </h3>
-                  <p className="text-charcoal-300 mb-4 leading-relaxed">
-                    {article === 1 &&
-                      'Explore advanced patterns and architectures for building maintainable React applications that scale with your team.'}
-                    {article === 2 &&
-                      'Discover cutting-edge CSS features and techniques that will transform your styling workflow and user experiences.'}
-                    {article === 3 &&
-                      'Deep dive into performance optimization strategies for Next.js applications with real-world examples.'}
-                  </p>
-                  <Button
-                    text="Read Article"
-                    variant="secondary"
-                    size="sm"
-                    endIcon={<ArrowRight size={16} />}
-                  />
-                </div>
-              </article>
             ))}
           </div>
         </div>
